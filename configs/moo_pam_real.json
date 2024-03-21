@@ -1,0 +1,25 @@
+{
+  "experiment_name": "moo_pam_real",
+  "checkpoints_dir": "./checkpoints",
+  "continue_train": true,
+  "debug": false,
+  "verbose": false,
+  "model": {
+    "name": "PAM",
+    "hyperparams_sc_intvl": 1,
+    "nepoch": 50,
+    "batch_size": 2,
+    "init_training_size": 23,
+    "eval_freq": 1,
+    "ncvsplit":10,
+    "surrogate_model":"xgb"
+  },
+  "dataset": {
+      "type": "MOO",
+      "name":"moo_small",
+    "init_tr_pth": "./data/moo_init_data.csv",
+    "global_space_rng_pth": "./data/simulator/global_space/moo_small.json",
+    "fix_init_tr": true,
+    "yield_target": 0
+  }
+}

@@ -1,0 +1,27 @@
+{
+    "Reaction Temperature (°C)":[
+        {"type": "list_range","val":{"min":80, "max":220, "interval":20}}
+    ],
+    "Reaction Time(h)":[
+        {"type": "list_range","val":{"min":1, "max":12, "interval":1}}
+    ],
+    "Ramp Rate (°C/min)":[
+        {"type": "list_range","val":{"min":2, "max":8, "interval":2}}
+    ],
+    "Mass of Precursor A (g)":[
+        {"type": "list_range","val":{"min":0.02, "max":0.2, "interval":0.02}}
+    ],
+    "Types of catalyst":[
+        {"type": "list_value","val":[0,1,2,3]}
+    ],
+    "Volume/mass of catalyst":[
+        {"type": "list_range","val":{"min":0, "max":1000, "interval":20}}
+    ],
+
+    "Types of Solution":[
+        {"type": "list_value","val":[0,1,2,3,4]}
+    ],
+    "Volume (mL)":[
+        {"type": "list_range","val":{"min":2, "max":10, "interval":2}}
+    ]
+}
