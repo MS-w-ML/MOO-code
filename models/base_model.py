@@ -258,6 +258,8 @@ class BaseModel(ABC):
                     y_pred[y_pred < real_min] = real_min
                     y_pred[y_pred > real_max] = real_max
                     y_pred = (y_pred - real_min) / (real_max - real_min)
+                    
+                    y_true = (y_true - real_min) / (real_max - real_min)
 
                 # compute r2
                 res_dict[y_lbl+'_r2'] = metrics.r2_score(y_true,y_pred)   
