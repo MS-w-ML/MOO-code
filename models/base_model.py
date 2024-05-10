@@ -236,9 +236,9 @@ class BaseModel(ABC):
                 # normalize ys to [0,1]
                 _ylbl = None
                 if y_lbl not in ['yield', 'color']:
-                    if y_true.max() <= self.yield_max_new and y_true.min() >= self.yield_min_new:
+                    if y_true.max() <= self.ds.yield_max_new and y_true.min() >= self.ds.yield_min_new:
                         _ylbl = 'yield'
-                    elif y_true.max() <= self.color_max_new and y_true.min() >= self.color_min_new:
+                    elif y_true.max() <= self.ds.color_max_new and y_true.min() >= self.ds.color_min_new:
                         _ylbl = 'color'
                 
                 else:
@@ -246,19 +246,19 @@ class BaseModel(ABC):
 
                 
                 if _ylbl == 'yield':
-                    real_max = self.yield_max_new
-                    real_min = self.yield_min_new
+                    real_max = self.ds.yield_max_new
+                    real_min = self.ds.yield_min_new
                 
                 elif _ylbl == 'color':
-                    real_max = self.color_max_new
-                    real_min = self.color_min_new
+                    real_max = self.ds.color_max_new
+                    real_min = self.ds.color_min_new
     
                 if _ylbl is not None:
                     print('Normalizing predicted %s to [0,1] for evaluation...'%_ylbl)
                     y_pred[y_pred < real_min] = real_min
                     y_pred[y_pred > real_max] = real_max
                     y_pred = (y_pred - real_min) / (real_max - real_min)
-                    
+
                     y_true = (y_true - real_min) / (real_max - real_min)
 
                 # compute r2
