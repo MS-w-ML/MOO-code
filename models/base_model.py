@@ -253,8 +253,9 @@ class BaseModel(ABC):
                     real_max = self.ds.color_max_new
                     real_min = self.ds.color_min_new
     
+
                 if _ylbl is not None:
-                    print('Normalizing predicted %s to [0,1] for evaluation...'%_ylbl)
+                    print('Normalizing %s to [0,1] for evaluation...'%_ylbl)
                     y_pred[y_pred < real_min] = real_min
                     y_pred[y_pred > real_max] = real_max
                     y_pred = (y_pred - real_min) / (real_max - real_min)
