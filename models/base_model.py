@@ -232,6 +232,34 @@ class BaseModel(ABC):
             y_pred = known_exps[y_lbl+'_pred'].to_numpy()[self.init_tr_size:]
 
             if self.epoch > 0: 
+                
+                # normalize ys to [0,1]
+                _ylbl = None
+                if y_lbl not in ['yield', 'color']:
+                    if y_true.max() <= self.yield_max_new and y_true.min() >= self.yield_min_new:
+                        _ylbl = 'yield'
+                    elif y_true.max() <= self.color_max_new and y_true.min() >= self.color_min_new:
+                        _ylbl = 'color'
+                
+                else:
+                    _ylbl = y_lbl
+
+                
+                if _ylbl == 'yield':
+                    real_max = self.yield_max_new
+                    real_min = self.yield_min_new
+                
+                elif _ylbl == 'color':
+                    real_max = self.color_max_new
+                    real_min = self.color_min_new
+    
+                if _ylbl is not None:
+                    print('Normalizing predicted %s to [0,1] for evaluation...'%_ylbl)
+                    y_pred[y_pred < real_min] = real_min
+                    y_pred[y_pred > real_max] = real_max
+                    y_pred = (y_pred - real_min) / (real_max - real_min)
+
+                # compute r2
                 res_dict[y_lbl+'_r2'] = metrics.r2_score(y_true,y_pred)   
                 res_dict[y_lbl+'_mse'] = metrics.mean_squared_error(y_true,y_pred)
                 [res_dict[y_lbl+'_pearson'],res_dict[y_lbl+'_p_val']] = pearsonr(y_true,y_pred)
